@@ -1,0 +1,26 @@
+#body {
+  width: 900px;
+  margin: 0 auto;
+}
+
+header {
+  overflow: auto;
+  width: 100%;
+  border-bottom: 10px solid transparent;
+  background-color: aqua
+}
+
+header h2 {
+  text-align: center;
+}
+img {
+  max-height: 200px;
+  max-width: 100%;
+  margin: 0 auto;
+  border:1px solid maroon;
+}
+
+img {
+  float: left;
+  width: 30%;
+}
