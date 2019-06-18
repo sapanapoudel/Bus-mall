@@ -27,14 +27,14 @@ Display result
 //Global Variables 
 var allImageSecectionTag = document.getElementById('all-images');
 var firstImageTag = document.getElementById('first_image_1');
-var centralImageTag = document.getElementById('center_image_2');
+var centerImageTag = document.getElementById('center_image_2');
 var lastImageTag = document.getElementById('last_image_3');
 
 var totalClicks = 0;
 
 //Variables to store the images already on the page
 var firstImageOnThePage = null;
-var centralImageOnThePage = null;
+var centerImageOnThePage = null;
 var lastImageOnThePage = null;
 
 //Cerating constructor function 
@@ -51,7 +51,7 @@ NewImage.allImages = [];
 //Prevent last picked images from being appeared again in a coonsecutive way
 var renderNewImage = function(firstImage, centerImage, lastImage){
   firstImageTag.src = NewImage.allImages[firstImage].url;
-  centralImageTag.src = NewImage.allImages[centerImage].url;
+  centerImageTag.src = NewImage.allImages[centerImage].url;
   lastImageTag.src  = NewImage.allImages[lastImage].url;
 };
 
@@ -73,7 +73,7 @@ var pickNewImages = function() {
   console.log(NewImage.allImages[firstImage].name, NewImage.allImages[centerImage].name, NewImage.allImages[lastImage].name);
 
   firstImageOnThePage = NewImage.allImages[firstImage];
-  centralImageOnThePage = NewImage.allImages[centerImage];
+  centerImageOnThePage = NewImage.allImages[centerImage];
   lastImageOnThePage = NewImage.allImages[lastImage];
 
   renderNewImage(firstImage, centerImage, lastImage);
@@ -83,7 +83,7 @@ var pickNewImages = function() {
 var handleClickOnImage = function(event){
   // console.log('Hello!');
 
-  if (totalClicks < 3){
+  if (totalClicks < 25){
     var imageClickedOn = event.target;
     var id = imageClickedOn.id;
 
@@ -93,7 +93,7 @@ var handleClickOnImage = function(event){
       }
 
       if (id === 'center_image_2'){
-        centralImageOnThePage.timesClicked++;
+        centerImageOnThePage.timesClicked++;
       }
 
       if ( id === 'last_image_3'){
@@ -101,7 +101,7 @@ var handleClickOnImage = function(event){
       }
 
       firstImageOnThePage.timesShown++;
-      centralImageOnThePage.timesShown++;
+      centerImageOnThePage.timesShown++;
       lastImageOnThePage.timesShown++;
 
       //After we update the old, pick new images 
@@ -113,7 +113,7 @@ var handleClickOnImage = function(event){
   totalClicks++;
 
   //When user reaches to 25 clicks, remove the click handleClickOnImage function 
-  if(totalClicks === 3) {
+  if(totalClicks === 25) {
     allImageSecectionTag.removeEventListener('click', handleClickOnImage);
   }
 };
@@ -145,7 +145,7 @@ new NewImage('wine-glass', 'img/wine-glass.jpg');
 
 //Track the default images
 firstImageOnThePage = NewImage.allImages[0];
-centralImageOnThePage = NewImage.allImages[1];
+centerImageOnThePage = NewImage.allImages[1];
 lastImageOnThePage = NewImage.allImages[2];
 
 pickNewImages();
