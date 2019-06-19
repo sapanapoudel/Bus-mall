@@ -51,11 +51,7 @@ img {
   float: left;
   width: 30%;
 }
-#item-list {
-  margin-top: 40px;
-  list-style-type: none;
-  color: rebeccapurple;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 20px;
-}
+/* #item-list {
+  height: 100px;
+  width: 100px;
+} */
