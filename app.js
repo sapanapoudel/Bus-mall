@@ -37,13 +37,8 @@ var lastImageTag = document.getElementById('last_image_3');
 var totalClicks = 0;
 var maxClicks = 25;
 
-//Variables to store the images already on the page
-// var firstImageOnThePage = null;
-// var centerImageOnThePage = null;
-// var lastImageOnThePage = null;
-
 //Cerating constructor function 
-var Item = function (name,imgSrc = 'default.jpg', timesClicked, timesShown) {
+var Item = function (name, imgSrc = 'default.jpg', timesClicked, timesShown) {
   this.name = name;
   this.url = imgSrc;
   //ternary operator 
@@ -56,7 +51,7 @@ Item.allImages = [];
 Item.oldImages = [];
 
 //Instantiate my image objects 
-var buildImages = function() {
+var buildImages = function () {
   new Item('bag', 'img/bag.jpg');
   new Item('banana', 'img/banana.jpg');
   new Item('bathroom', 'img/bathroom.jpg');
@@ -89,7 +84,7 @@ function getRandomIntInclusive(min, max) {
 console.log("hey");
 //Prevent last picked images from being appeared again in a coonsecutive way
 
-var pickNewImages = function(currentPicture) {
+var pickNewImages = function (currentPicture) {
   var index, image;
 
   do {
@@ -115,17 +110,18 @@ var renderNewImages = function () {
   firstImageTag.src = firstImage.url;
   centerImageTag.src = centerImage.url;
   lastImageTag.src = lastImage.url;
-
+  //pushing current picturres to the old image array
   Item.oldImages = currentPicture;
 };
 
+//Function that handle click event
 var handleClickOnImage = function (event) {
 
   totalClicks++;
   console.log('totalClicks: ' + totalClicks);
   console.log(Item.oldImages);
   console.log(event.target.id);
-  
+
   if (event.target.id === 'first_image_1') {
     Item.oldImages[0].timesClicked++;
     console.log(Item.oldImages.timesClicked);
@@ -138,7 +134,7 @@ var handleClickOnImage = function (event) {
   if (event.target.id === 'last_image_3') {
     Item.oldImages[2].timesClicked++;
   }
-  for (var i = 0; i < Item.oldImages.length; i++){
+  for (var i = 0; i < Item.oldImages.length; i++) {
     Item.oldImages[i].timesShown++;
   }
   if (totalClicks < maxClicks) {
@@ -146,19 +142,71 @@ var handleClickOnImage = function (event) {
   } else {
     allImageSecectionTag.removeEventListener('click', handleClickOnImage);
 
-    for (i = 0; i < Item.allImages.length; i++) {
-      var liEl = document.createElement('li');
-      liEl.textContent = Item.allImages[i].name + ': ' + Math.floor((Item.allImages[i].timesClicked / Item.allImages[i].timesShown) * 100);
-      displayList.appendChild(liEl);
-    }
-  }
+    busChart();
 
+  }
 };
 
-var loadPage = function() {
+//Loading page 
+var loadPage = function () {
   buildImages();
   renderNewImages();
   allImageSecectionTag.addEventListener('click', handleClickOnImage);
 };
 
 loadPage();
+
+//Create Bus Chart 
+function busChart() {
+  var ctx = document.getElementById('results');
+  var percents = [];
+  var names = [];
+
+
+  for (var i = 0; i < Item.allImages.length; i++) {
+    var p = Math.floor((Item.allImages[i].timesClicked / Item.allImages[i].timesShown) * 100);
+    names.push(Item.allImages[i].name);
+    percents.push(p);
+
+  }
+  var chartData = {
+    labels: names,
+    datasets: [{
+      label: '# of Votes',
+      data: percents,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  var busChartObject = {
+    type: 'pie',
+    data : chartData,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  };
+  var buschart = new Chart(ctx, busChartObject);
+
+}
