@@ -38,9 +38,11 @@ nav > ul > li > a {
   text-align: center;
   color: brown;
   font-style: oblique;
+  font-size: 20px;
+  font-weight: bold;
 }
 #all-images {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 
 }
 img {
@@ -51,11 +53,9 @@ img {
   float: left;
   width: 30%;
 }
+
 #item-list {
-  margin-top: 40px;
-  list-style-type: none;
-  color: rebeccapurple;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 20px;
+  /* margin-top: 30px; */
+  height: 600px;
+  width: 600px;
 }
