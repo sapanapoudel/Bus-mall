@@ -83,8 +83,8 @@ function getRandomIntInclusive(min, max) {
 }
 
 //Prevent last picked images from being appeared again in a coonsecutive way
+var pickNewImages = function(currentPicture) {
 
-var pickNewImages = function (currentPicture) {
   var index, image;
 
   do {

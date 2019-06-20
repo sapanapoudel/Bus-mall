@@ -1,3 +1,5 @@
+User Stories 
+
 Marketing research team: 
 1.	They have created a list of items from wide variation after doing extensive research on focused group participant to see what they like to buy more. So, they can get most popular items on the list.
 2.	Team is more focused on getting variety of items on the list to satisfy wide range of necessity and wide range of customers. 
