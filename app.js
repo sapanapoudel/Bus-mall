@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 'use strict';
@@ -26,7 +27,6 @@ Display result
 */
 
 //Global Variables 
-console.log('hello');
 var allImageSecectionTag = document.getElementById('all-images');
 var displayList = document.getElementById('item-list');
 
@@ -36,11 +36,6 @@ var lastImageTag = document.getElementById('last_image_3');
 
 var totalClicks = 0;
 var maxClicks = 25;
-
-//Variables to store the images already on the page
-// var firstImageOnThePage = null;
-// var centerImageOnThePage = null;
-// var lastImageOnThePage = null;
 
 //Cerating constructor function 
 var Item = function (name,imgSrc = 'default.jpg', timesClicked, timesShown) {
@@ -86,9 +81,8 @@ function getRandomIntInclusive(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
-console.log("hey");
-//Prevent last picked images from being appeared again in a coonsecutive way
 
+//Prevent last picked images from being appeared again in a coonsecutive way
 var pickNewImages = function(currentPicture) {
   var index, image;
 
@@ -122,13 +116,9 @@ var renderNewImages = function () {
 var handleClickOnImage = function (event) {
 
   totalClicks++;
-  console.log('totalClicks: ' + totalClicks);
-  console.log(Item.oldImages);
-  console.log(event.target.id);
   
   if (event.target.id === 'first_image_1') {
     Item.oldImages[0].timesClicked++;
-    console.log(Item.oldImages.timesClicked);
   }
 
   if (event.target.id === 'center_image_2') {
@@ -143,6 +133,7 @@ var handleClickOnImage = function (event) {
   }
   if (totalClicks < maxClicks) {
     renderNewImages();
+    
   } else {
     allImageSecectionTag.removeEventListener('click', handleClickOnImage);
 
