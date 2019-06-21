@@ -111,6 +111,8 @@ var renderNewImages = function () {
   lastImageTag.src = lastImage.url;
   //pushing current picturres to the old image array
   Item.oldImages = currentPicture;
+
+  busChart();
 };
 
 //Function that handle click event
@@ -137,6 +139,7 @@ var handleClickOnImage = function (event) {
     
   } else {
     allImageSecectionTag.removeEventListener('click', handleClickOnImage);
+    pushDataInToLocaStorage();
 
     busChart();
 
@@ -152,19 +155,42 @@ var loadPage = function () {
 
 loadPage();
 
-//Create Bus Chart 
-function busChart() {
-  var ctx = document.getElementById('results');
+//Function to put data into local storage 
+function pushDataInToLocaStorage(){
   var percents = [];
   var names = [];
-
+  var imageClicked = [];
+  var imageShown = [];
 
   for (var i = 0; i < Item.allImages.length; i++) {
     var p = Math.floor((Item.allImages[i].timesClicked / Item.allImages[i].timesShown) * 100);
     names.push(Item.allImages[i].name);
     percents.push(p);
+    imageClicked.push(Item.allImages[i].timesClicked);
+    imageShown.push(Item.allImages[i].timesShown);
 
   }
+
+  //Put data into localStorage 
+  var percentsStringify = JSON.stringify(percents);
+  localStorage.setItem('percents', percentsStringify);
+
+  var namesStringify = JSON.stringify(names);
+  localStorage.setItem('names', namesStringify);
+
+  var imageClickedStringify = JSON.stringify(imageClicked);
+  localStorage.setItem('timesClicked', imageClickedStringify);
+
+  var imageShownStringify = JSON.stringify(imageShown);
+  localStorage.setItem('imageShown', imageShownStringify);
+
+}
+//Create Bus Chart 
+function busChart() {
+  var percents = JSON.parse(localStorage.getItem('percents'));
+  var names = JSON.parse(localStorage.getItem('names'));
+  var ctx = document.getElementById('results');
+ 
   var chartData = {
     labels: names,
     datasets: [{
